@@ -1,11 +1,9 @@
 import pyglet
 from pyglet.gl import *
 from pyglet.window import key
-from pyglet import text, image, media, graphics, shapes, font
+from pyglet import text, media, graphics, shapes, font
 import os
 import random
-import math
-import time
 import copy
 
 window = None
@@ -332,22 +330,19 @@ def drawText(text_str, x, y, size=48, r=255, g=255, b=255, alpha=255, center=Fal
         return None
 
 def logo(CentreX, CentreY):
-    lines = [
-        [(CentreX, CentreY + 70), (CentreX + 80, CentreY + 25)],
-        [(CentreX + 80, CentreY + 25), (CentreX, CentreY - 20)],
-        [(CentreX, CentreY - 20), (CentreX - 80, CentreY + 25)],
-        [(CentreX - 80, CentreY + 25), (CentreX, CentreY + 70)],
-        [(CentreX, CentreY - 20), (CentreX - 80, CentreY + 25)],
-        [(CentreX - 80, CentreY + 25), (CentreX - 80, CentreY - 75)],
-        [(CentreX - 80, CentreY - 75), (CentreX, CentreY - 120)],
-        [(CentreX, CentreY - 120), (CentreX, CentreY - 20)],
-        [(CentreX, CentreY - 20), (CentreX + 80, CentreY + 25)],
-        [(CentreX + 80, CentreY + 25), (CentreX + 80, CentreY - 75)],
-        [(CentreX + 80, CentreY - 75), (CentreX, CentreY - 120)],
-        [(CentreX, CentreY - 120), (CentreX, CentreY - 20)]
-    ]
-    for (x1, y1), (x2, y2) in lines:
-        drawLine(x1, y1, x2, y2, 255, 255, 255, 255, 2)
+    # 绘制实心正方体
+    # 上表面
+    top_face = shapes.Polygon((CentreX, CentreY + 70), (CentreX + 80, CentreY + 25), (CentreX, CentreY - 20), (CentreX - 80, CentreY + 25),
+                 color=(255, 255, 255), batch=main_batch)
+    frame_shapes.append(top_face)
+    # 左表面
+    left_face = shapes.Polygon((CentreX, CentreY - 20), (CentreX - 80, CentreY + 25), (CentreX - 80, CentreY - 75), (CentreX, CentreY - 120),
+                 color=(200, 200, 200), batch=main_batch)
+    frame_shapes.append(left_face)
+    # 右表面
+    right_face = shapes.Polygon((CentreX, CentreY - 20), (CentreX + 80, CentreY + 25), (CentreX + 80, CentreY - 75), (CentreX, CentreY - 120),
+                 color=(180, 180, 180), batch=main_batch)
+    frame_shapes.append(right_face)
 
 def rendMap():
     global Paralleled, Obstacles, Obstacles_Parallel, width, height
